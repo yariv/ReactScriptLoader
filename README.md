@@ -1,6 +1,6 @@
 #What is it?
 
-ReactScriptLoader simplifies creating React components whose rendering depends on  dynamically loaded scripts. It can be used for lazily loading heavy scripts but it's especially useful for loading components that rely on 3rd party scripts, such as Google maps or Stripe.js payment buttons.
+ReactScriptLoader simplifies creating React components whose rendering depends on dynamically loaded scripts. It can be used for lazily loading heavy scripts but it's especially useful for loading components that rely on 3rd party scripts, such as Google Maps or Stripe Checkout.
 
 #Why use it?
 
@@ -126,9 +126,9 @@ var Map = React.createClass({
 exports.Map = Map;
 ```
 
-## A Stripe.js button example
+## A Stripe Checkout example
 
-This last example shows how to create a component called StripeButton that renders a button and uses Stripe.js to pop up a payment dialog when the user clicks on it. The button is rendered immediately but if the user clicks before the script is loaded the user sees a loading indicator, which disappears when the script has loaded. (Additional logic should be added to remove the loading dialog once all StripeButtons have been unmounted from the page. This remains an exercise for the reader :) ) If the script fails to load, we show the user an error message when the user clicks on the button.
+This last example shows how to create a component called StripeButton that renders a button and uses Stripe Checkout to pop up a payment dialog when the user clicks on it. The button is rendered immediately but if the user clicks before the script is loaded the user sees a loading indicator, which disappears when the script has loaded. (Additional logic should be added to remove the loading dialog once all StripeButtons have been unmounted from the page. This remains an exercise for the reader :) ) If the script fails to load, we show the user an error message when the user clicks on the button.
 
 ```javascript
 /** @jsx React.DOM */
