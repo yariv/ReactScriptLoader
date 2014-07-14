@@ -16,7 +16,7 @@ ReactScriptLoader provides a [React mixin](http://facebook.github.io/react/docs/
 
 Here's the most basic example for implemnting a React class that uses ReactScriptLoaderMixin. It uses require-js to import modules.
 
-```
+```javascript
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -63,9 +63,9 @@ var Foo = React.createClass({
 
 ## A Goole Maps component using deferred onScriptLoaded
 
-You may want to do some additional initialization after the script loads and before ReactScriptLoaderMixin calls onScriptLoaded. For example, the Google maps API calls a JSONP callback on your page before you can start using the API. If you naively try calling the Google maps methods in onScriptLoaded you'll probably see 'undefined is not a function' errors in the javascript console. ReactScriptLoader helps you avoid this problem by implementing the ***deferOnScriptLoaded()*** callback in your component class. If this method returns true, ReactScriptLoaderMixin will wait on calling onScriptLoaded() until you manually call ***ReactScriptLoader.triggerOnScriptLoaded(scriptURL) method.*** This is best illustrated in the following example:
+You may want to do some additional initialization after the script loads and before ReactScriptLoaderMixin calls onScriptLoaded. For example, the Google maps API calls a JSONP callback on your page before you can start using the API. If you naively try calling the Google maps methods in onScriptLoaded you'll probably see 'undefined is not a function' errors in the javascript console. ReactScriptLoader helps you avoid this problem by implementing the ***deferOnScriptLoaded()*** callback in your component class. If this method returns true, ReactScriptLoaderMixin will wait on calling onScriptLoaded() until you manually call ***ReactScriptLoader.triggerOnScriptLoaded(scriptURL)*** method. This is best illustrated in the following example:
 
-```
+```javascript
 /** @jsx React.DOM */
 
 var React = require('react.js');
@@ -118,7 +118,7 @@ var Map = React.createClass({
   	var map = new google.maps.Map(this.getDOMNode(), mapOptions);
 	},
 	onScriptError: function() {
-		// Show the user some error message.
+		// Show the user an error message.
 	},
 });
 
@@ -129,7 +129,7 @@ exports.Map = Map;
 
 This last example shows how to create a component called StripeButton that renders a button and uses Stripe.js to pop up a payment dialog when the user clicks on it. The button is rendered immediately but if the user clicks before the script is loaded the user sees a loading indicator, which disappears when the script has loaded. (Additional logic should be added to remove the loading dialog once all StripeButtons have been unmounted from the page. This remains an exercise for the reader :) ) If the script fails to load, we show the user an error message when the user clicks on the button.
 
-```
+```javascript
 /** @jsx React.DOM */
 
 var React = require('react');
