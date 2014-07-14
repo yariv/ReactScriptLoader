@@ -79,10 +79,10 @@ var scriptURL = 'https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initia
 // This function is called by the Google maps API after its initialization is
 // complete.
 // We need to define this function in the window scope to make it accessible
-// to the Google maps javascript.
+// to the Google maps script.
 window.initializeMaps = function() {
 
-	// Call the onScriptLoaded method on all mounted Map components.
+	// This triggers the onScriptLoaded method call on all mounted Map components.
 	ReactScriptLoader.triggerOnScriptLoaded(scriptURL);
 }
 
@@ -91,11 +91,8 @@ var Map = React.createClass({
 	getScriptURL: function() {
 		return scriptURL;
 	},
-	render: function() {
-		return <div className="mapCanvas"/>;
-	},
-
-	// This ensures that onScriptLoaded is deferred until the
+	
+	// Ensure that onScriptLoaded is deferred until the
 	// ReactScriptLoader.triggerOnScriptLoaded() call above is made in
 	// initializeMaps().
 	deferOnScriptLoaded: function() {
@@ -106,7 +103,7 @@ var Map = React.createClass({
 		// Render a map with the center point given by the component's lat and lng
 		// properties.
 		var center = new google.maps.LatLng(this.props.lat, this.props.lng);
-	  var mapOptions = {
+	  	var mapOptions = {
 		    zoom: 12,
 		    center: center,
 		    disableDefaultUI: true,
@@ -115,11 +112,15 @@ var Map = React.createClass({
 		    scrollwheel: false,
 		    disableDoubleClickZoom: true,
 		  };
-  	var map = new google.maps.Map(this.getDOMNode(), mapOptions);
+  		var map = new google.maps.Map(this.getDOMNode(), mapOptions);
 	},
 	onScriptError: function() {
 		// Show the user an error message.
 	},
+	render: function() {
+		return <div className="mapCanvas"/>;
+	},
+
 });
 
 exports.Map = Map;
@@ -156,12 +157,12 @@ var StripeButton = React.createClass({
 		if (!StripeButton.stripeHandler) {
 			StripeButton.stripeHandler = StripeCheckout.configure({
 				key: 'YOUR_STRIPE_KEY',
-  			image: '/YOUR_LOGO_IMAGE.png',
-  			token: function(token) {
-    			// Use the token to create the charge with a server-side script.
-		  	}
-		  });
-  		if (this.hasPendingClick) {
+  				image: '/YOUR_LOGO_IMAGE.png',
+  				token: function(token) {
+    					// Use the token to create the charge with a server-side script.
+		  		}
+		  	});
+  			if (this.hasPendingClick) {
 				this.showStripeDialog();
 			}
 		}
@@ -175,10 +176,10 @@ var StripeButton = React.createClass({
 	showStripeDialog: function() {
 		this.hideLoadingDialog();
 		StripeButton.stripeHandler.open({
-      name: 'Demo Site',
-      description: '2 widgets ($20.00)',
-      amount: 2000
-    });
+      			name: 'Demo Site',
+      			description: '2 widgets ($20.00)',
+      			amount: 2000
+    		});
 	},
 	onScriptError: function() {
 		this.hideLoadingDialog();
