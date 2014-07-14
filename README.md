@@ -4,7 +4,7 @@ ReactScriptLoader simplifies creating React components whose rendering depends o
 
 #Why use it?
 
-React apps are typically single-page apps that are rendered client-side in Javascript. When loading a site built with React, the browser typically pre-loads the javascript necessary to render the site's React components so that they can be rendered with minimal latency. This works well for sites that serve a relatively small amount of javascript from their own servers in a single bundle. However, in some situations pre-loading all the scripts necessary to render the site's components is impractial. For example, a site may have a Map component that relies on a dynamically loaded 3rd party library to render itself. While it may be possible to delay rendering the app until the third party library is finished loading, doing so can make the site feel unnecessarily sluggish. It's a much better strategy to first render the page without the map, then kick off the loading of the 3rd party library and add the map to the page after the library has loaded. This is especially the case when the map component isn't rendered right away but is only revealed after some user interaction.
+React apps are typically single-page apps that are rendered client-side in Javascript. When loading a site built with React, the browser typically pre-loads the javascript necessary to render the site's React components so that they can be rendered with no latency. This works well for sites that serve a relatively small amount of javascript from their own servers in a single bundle. However, in some situations pre-loading all the scripts necessary to render the site's components is impractial. For example, a site may have a Map component that relies on a dynamically loaded 3rd party library to render itself. It may be possible to delay rendering the app until the third party library is finished loading but doing so would make the site feel unnecessarily sluggish. It's a much better strategy to first render the page with a placeholder for the map and asynchronously render the map once the third party library has loaded. Deferring the loading of the external script is even more important when the map component isn't rendered right away but is only revealed after user interaction.
 
 #How does it work?
 
@@ -61,7 +61,7 @@ var Foo = React.createClass({
 });
 ```
 
-## A Goole Maps component using deferred onScriptLoaded
+## A Goole Maps component
 
 You may want to do some additional initialization after the script loads and before ReactScriptLoaderMixin calls onScriptLoaded. For example, the Google maps API calls a JSONP callback on your page before you can start using the API. If you naively try calling the Google maps methods in onScriptLoaded you'll probably see 'undefined is not a function' errors in the javascript console. ReactScriptLoader helps you avoid this problem by implementing the ***deferOnScriptLoaded()*** callback in your component class. If this method returns true, ReactScriptLoaderMixin will wait on calling onScriptLoaded() until you manually call ***ReactScriptLoader.triggerOnScriptLoaded(scriptURL)*** method. This is best illustrated in the following example:
 
