@@ -1,22 +1,22 @@
-= What is it?
+#What is it?
 
 ReactScriptLoader simplifies creating React components whose rendering depends on  dynamically loaded scripts. It can be used for lazily loading heavy scripts but it's especially useful for loading components that rely on 3rd party scripts, such as Google maps or Stripe.js payment buttons.
 
-= Why use it?
+#Why use it?
 
 React apps are typically single-page apps that are rendered client-side in Javascript. When loading a site built with React, the browser typically pre-loads the javascript necessary to render the site's React components so that they can be rendered with minimal latency. This works well for sites that serve a relatively small amount of javascript from their own servers in a single bundle. However, in some situations pre-loading all the scripts necessary to render the site's components is impractial. For example, a site may have a Map component that relies on a dynamically loaded 3rd party library to render itself. While it may be possible to delay rendering the app until the third party library is finished loading, doing so can make the site feel unnecessarily sluggish. It's a much better strategy to first render the page without the map, then kick off the loading of the 3rd party library and add the map to the page after the library has loaded. This is especially the case when the map component isn't rendered right away but is only revealed after some user interaction.
 
-= How does it work?
+#How does it work?
 
-ReactScriptLoader provides a React mixin [http://facebook.github.io/react/docs/reusable-components.html#mixins] that you can add to any component class. In addition to using the mixin, your class should provide a few methods that tell ReactScriptLoaderMixin the script's URL and how to handle script load and error events. ReactScriptLoaderMixin handles loading the scripts, notifying the components that depend on a script after they mount and cleaning before the components unmount. ReactScriptLoader ensures that a script is only loaded once no matter how many components use it.
+ReactScriptLoader provides a [React mixin](http://facebook.github.io/react/docs/reusable-components.html#mixins) that you can add to any component class. In addition to using the mixin, your class should provide a few methods that tell ReactScriptLoaderMixin the script's URL and how to handle script load and error events. ReactScriptLoaderMixin handles loading the scripts, notifying the components that depend on a script after they mount and cleaning before the components unmount. ReactScriptLoader ensures that a script is only loaded once no matter how many components use it.
 
-= Examples
+# Examples
 
-== Basic Example
+## Basic Example
 
 Here's the most basic example for implemnting a React class that uses ReactScriptLoaderMixin. It uses require-js to import modules.
 
-'''
+```
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -59,13 +59,13 @@ var Foo = React.createClass({
 		return <span>{message}</span>;
 	}
 });
-'''
+```
 
-== A Goole Maps component using deferred onScriptLoaded
+## A Goole Maps component using deferred onScriptLoaded
 
 You may want to do some additional initialization after the script loads and before ReactScriptLoaderMixin calls onScriptLoaded. For example, the Google maps API calls a JSONP callback on your page before you can start using the API. If you naively try calling the Google maps methods in onScriptLoaded you'll probably see 'undefined is not a function' errors in the javascript console. ReactScriptLoader helps you avoid this problem by implementing the ***deferOnScriptLoaded()*** callback in your component class. If this method returns true, ReactScriptLoaderMixin will wait on calling onScriptLoaded() until you manually call ***ReactScriptLoader.triggerOnScriptLoaded(scriptURL) method.*** This is best illustrated in the following example:
 
-'''
+```
 /** @jsx React.DOM */
 
 var React = require('react.js');
@@ -123,13 +123,13 @@ var Map = React.createClass({
 });
 
 exports.Map = Map;
-'''
+```
 
-== A Stripe.js button example
+## A Stripe.js button example
 
 This last example shows how to create a component called StripeButton that renders a button and uses Stripe.js to pop up a payment dialog when the user clicks on it. The button is rendered immediately but if the user clicks before the script is loaded the user sees a loading indicator, which disappears when the script has loaded. (Additional logic should be added to remove the loading dialog once all StripeButtons have been unmounted from the page. This remains an exercise for the reader :) ) If the script fails to load, we show the user an error message when the user clicks on the button.
 
-'''
+```
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -202,4 +202,4 @@ var StripeButton = React.createClass({
 });
 
 exports.StripeButton = StripeButton;
-'''
+```
