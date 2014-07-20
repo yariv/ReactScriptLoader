@@ -78,13 +78,12 @@ var ReactScriptLoader = {
 		};
 		document.body.appendChild(script);
 	},
-	componentWillUnmount: function(key) {
+	componentWillUnmount: function(key, scriptURL) {
 		// If the component is waiting for the script to load, remove the
 		// component from the script's observers before unmounting the component.
-		var scriptURL = this.getScriptURL();
 		var observers = scriptObservers[scriptURL];
 		if (observers) {
-			delete observers[this.getID()];
+			delete observers[key];
 		}
 	},
 	triggerOnScriptLoaded: function(scriptURL) {
@@ -108,7 +107,7 @@ var ReactScriptLoaderMixin = {
 		ReactScriptLoader.componentDidMount(this.__getScriptLoaderID(), this, this.getScriptURL());
 	},
 	componentWillUnmount: function() {
-		ReactScriptLoader.componentWillUnmount(this.__getScriptLoaderID());
+		ReactScriptLoader.componentWillUnmount(this.__getScriptLoaderID(), this.getScriptURL());
 	},
 	__getScriptLoaderID: function() {
 		return 'id' + idCount++;
