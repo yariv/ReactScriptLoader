@@ -110,7 +110,11 @@ var ReactScriptLoaderMixin = {
 		ReactScriptLoader.componentWillUnmount(this.__getScriptLoaderID(), this.getScriptURL());
 	},
 	__getScriptLoaderID: function() {
-		return 'id' + idCount++;
+		if (typeof this.__reactScriptLoaderID === 'undefined') {
+			this.__reactScriptLoaderID = 'id' + idCount++;
+		}
+
+		return this.__reactScriptLoaderID;
 	},
 };
 
