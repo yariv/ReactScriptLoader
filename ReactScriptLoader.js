@@ -47,8 +47,8 @@ var ReactScriptLoader = {
 
 		var script = document.createElement('script');
 
-		if (typeof component.modifyScriptTag === 'function') {
-			component.modifyScriptTag(script);
+		if (typeof component.onScriptTagCreated === 'function') {
+			component.onScriptTagCreated(script);
 		}
 
 		script.src = scriptURL;
