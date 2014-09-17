@@ -46,6 +46,11 @@ var ReactScriptLoader = {
 		scriptObservers[scriptURL] = observers;
 
 		var script = document.createElement('script');
+
+		if (typeof component.modifyScriptTag === 'function') {
+			component.modifyScriptTag(script);
+		}
+
 		script.src = scriptURL;
 
 		var callObserverFuncAndRemoveObserver = function(func) {
