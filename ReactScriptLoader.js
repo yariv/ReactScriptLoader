@@ -52,6 +52,7 @@ var ReactScriptLoader = {
 		}
 
 		script.src = scriptURL;
+		script.async = 1;
 
 		var callObserverFuncAndRemoveObserver = function(func) {
 			var observers = scriptObservers[scriptURL];
@@ -81,6 +82,16 @@ var ReactScriptLoader = {
 				return true;
 			});
 		};
+		// (old) MSIE browsers may call 'onreadystatechange' instead of 'onload'
+    		script.onreadystatechange = function() {
+      			if (this.readyState == 'loaded') {
+        			// wait for other events, then call onload if default onload hadn't been called
+        			window.setTimeout(function() {
+          				if (loadedScripts[scriptURL] !== true) script.onload();
+        			}, 0);
+      			}
+    		};
+		
 		document.body.appendChild(script);
 	},
 	componentWillUnmount: function(key, scriptURL) {
