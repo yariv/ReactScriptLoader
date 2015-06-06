@@ -20,7 +20,7 @@ Here's the most basic example for implemnting a React class that uses ReactScrip
 /** @jsx React.DOM */
 
 var React = require('react');
-var ReactScriptLoaderMixin = require('./ReactScriptLoaderMixin.js').ReactScriptLoaderMixin;
+var ReactScriptLoaderMixin = require('react-script-loader').ReactScriptLoaderMixin;
 
 var Foo = React.createClass({
 	mixins: [ReactScriptLoaderMixin],
@@ -70,7 +70,7 @@ You may want to do some additional initialization after the script loads and bef
 
 var React = require('react.js');
 
-var ReactScriptLoaderModule = require('./ReactScriptLoader.js');
+var ReactScriptLoaderModule = require('react-script-loader');
 var ReactScriptLoaderMixin= ReactScriptLoaderModule.ReactScriptLoaderMixin;
 var ReactScriptLoader= ReactScriptLoaderModule.ReactScriptLoader;
 
@@ -134,7 +134,7 @@ This last example shows how to create a component called StripeButton that rende
 /** @jsx React.DOM */
 
 var React = require('react');
-var ReactScriptLoaderMixin = require('./ReactScriptLoader.js').ReactScriptLoaderMixin;
+var ReactScriptLoaderMixin = require('react-script-loader').ReactScriptLoaderMixin;
 
 var StripeButton = React.createClass({
 	mixins: [ReactScriptLoaderMixin],
