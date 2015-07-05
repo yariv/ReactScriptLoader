@@ -61,7 +61,7 @@ var Foo = React.createClass({
 });
 ```
 
-## A Goole Maps component
+## A Goolge Maps component
 
 You may want to do some additional initialization after the script loads and before ReactScriptLoaderMixin calls onScriptLoaded. For example, the Google maps API calls a JSONP callback on your page before you can start using the API. If you naively try calling the Google maps methods in onScriptLoaded you'll probably see 'undefined is not a function' errors in the javascript console. ReactScriptLoader helps you avoid this problem by implementing the ***deferOnScriptLoaded()*** callback in your component class. If this method returns true, ReactScriptLoaderMixin will wait on calling onScriptLoaded() until you manually call ***ReactScriptLoader.triggerOnScriptLoaded(scriptURL)*** method. This is best illustrated in the following example:
 
