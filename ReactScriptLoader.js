@@ -57,7 +57,7 @@ var ReactScriptLoader = {
 		var callObserverFuncAndRemoveObserver = function(func) {
 			var observers = scriptObservers[scriptURL];
 			for (var key in observers) {
-				observer = observers[key];
+				var observer = observers[key];
 				var removeObserver = func(observer);
 				if (removeObserver) {
 					delete scriptObservers[scriptURL][key];
