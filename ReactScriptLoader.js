@@ -75,6 +75,11 @@ var ReactScriptLoader = {
 				return true;
 			});
 		};
+		script.onreadystatechange = function () {
+            if (this.readyState == 'complete' || this.readyState == 'loaded') {
+                script.onload();
+            }
+        };
 		script.onerror = function(event) {
 			erroredScripts[scriptURL] = true;
 			callObserverFuncAndRemoveObserver(function(observer) {
