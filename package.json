@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "ReactScriptLoader.js",
   "engines": {
-    "node": "0.10.x"
+    "node": ">=0.10.x"
   },
   "repository": {
     "type": "git",
