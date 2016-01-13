@@ -91,7 +91,7 @@ var Map = React.createClass({
 	getScriptURL: function() {
 		return scriptURL;
 	},
-	
+
 	// Ensure that onScriptLoaded is deferred until the
 	// ReactScriptLoader.triggerOnScriptLoaded() call above is made in
 	// initializeMaps().
